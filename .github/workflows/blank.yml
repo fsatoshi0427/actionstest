@@ -1,0 +1,29 @@
+name: Display PHP Info with Runner IP
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get Runner IP Address
+      run: |
+        echo "Runner IP Address: $HOSTNAME"
+        
+    - name: Install Apache and PHP
+      run: |
+        sudo apt update
+        sudo apt install apache2 php -y
+        sudo systemctl start apache2
+
+    - name: Create phpinfo file
+      run: echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/phpinfo.php
+
+    - name: Configure Apache for phpinfo
+      run: |
+        sudo sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/apache2/mods-enabled/dir.conf
+        sudo systemctl restart apache2
