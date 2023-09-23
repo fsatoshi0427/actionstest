@@ -12,7 +12,7 @@ jobs:
 
     - name: Get Runner IP Address
       run: |
-        echo "Runner IP Address: $HOSTNAME"
+        hostname
         
     - name: Install Apache and PHP
       run: |
