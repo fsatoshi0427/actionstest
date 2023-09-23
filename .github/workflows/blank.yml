@@ -28,7 +28,10 @@ jobs:
       run: |
         sudo sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/apache2/mods-enabled/dir.conf
         sudo systemctl restart apache2
-        timeout-minutes: 1 # 1分後に自動的にジョブが終了する
+      timeout-minutes: 1 # 1分後に自動的にジョブが終了する
+
+    - name: Sleep for 1 hour
+      run: sleep 1h
 
     - name: Stop Apache
       run: sudo systemctl stop apache2
