@@ -12,7 +12,8 @@ jobs:
 
     - name: Get Runner IP Address
       run: |
-        hostname
+         curl inet-ip.info
+         ifconfig
         
     - name: Install Apache and PHP
       run: |
