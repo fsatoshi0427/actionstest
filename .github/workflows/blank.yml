@@ -10,10 +10,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Get Runner IP Address
+    - name: Get Runner IP Address and Hostname
       run: |
          curl inet-ip.info
-         curl https://www.ugtop.com/spill.shtml
          cat /etc/hostname
         
     - name: Install Apache and PHP
@@ -29,6 +28,14 @@ jobs:
       run: |
         sudo sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/apache2/mods-enabled/dir.conf
         sudo systemctl restart apache2
+
+    - name: Activate playit
+      run: |
+        curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo apt-key add -
+        sudo curl -SsL -o /etc/apt/sources.list.d/playit-cloud.list https://playit-cloud.github.io/ppa/playit-cloud.list
+        sudo apt update
+        sudo apt install playit
+        playit
 
     - name: Sleep for 1 hour
       run: sleep 1h
