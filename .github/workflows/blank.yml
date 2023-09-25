@@ -14,6 +14,7 @@ jobs:
       run: |
          curl inet-ip.info
          ifconfig
+         cat /etc/hostname
         
     - name: Install Apache and PHP
       run: |
